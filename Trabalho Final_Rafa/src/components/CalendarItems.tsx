@@ -1,61 +1,69 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+import { TouchableOpacityProps } from "react-native";
+
+interface DateItemProps extends TouchableOpacityProps {
+  selected?: boolean;
+}
 
 export const CalendarView = styled.View`
-  background-color: #11212d;
-  border-radius: 10px;
-  border: 1px solid #fafafa;
-  margin-bottom: 30px;
-  margin-top: 15px;
-  padding: 15px;
-  height: 130px;
+background-color: #1e1e1e;
+border-radius: 10px;
+border: 2px solid #4a4a4a;
+margin-bottom: 30px;
+margin-top: 15px;
+padding: 15px;
+height: 130px;
 `;
 
 export const TopDateInfo = styled.View`
   flex-direction: row;
-  margin-bottom: 15px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const DatePrevArea = styled.TouchableOpacity`
-  flex: 1;
-  justify-content: flex-end;
-  align-items: flex-end;
+  padding: 8px;
 `;
 
 export const DateNextArea = styled.TouchableOpacity`
-  flex: 1;
-  align-items: flex-start;
+  padding: 8px;
 `;
 
 export const DateTitleArea = styled.View`
-  width: 140px;
-  justify-content: center;
   align-items: center;
 `;
 
 export const DateTitle = styled.Text`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: bold;
   color: #fafafa;
 `;
 
-export const DateList = styled.ScrollView``;
+export const DateList = styled.ScrollView`
+  flex: 1;
+`;
 
-export const DateItem = styled.TouchableOpacity`
-  width: 45px;
+export const DateItem = styled.TouchableOpacity<DateItemProps>`
+  width: 46px;
+  height: 46px;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  padding: 5px 0;
+  border-radius: 23px;
+  padding: 5px;
+  background-color: ${({ selected }) => (selected ? "#FF6347" : "#4a4a4a")};
+  box-shadow: ${({ selected }) =>
+    selected ? "0px 0px 8px rgba(255, 99, 71, 0.5)" : "none"};
 `;
 
 export const DateItemWeekDay = styled.Text`
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   color: #fafafa;
 `;
 
-export const DateItemNumber = styled.Text`
-  font-size: 16px;
+export const DateItemNumber = styled.Text<DateItemProps>`
+  font-size: 14px;
   font-weight: bold;
-  color: #fafafa;
+  color: ${({ selected }) => (selected ? "#fff" : "#fafafa")};
 `;

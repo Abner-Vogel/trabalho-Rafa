@@ -49,10 +49,9 @@ const WeekCalendar = () => {
         weekday: days[d.getDay()],
         number: i,
       });
-
-      setListDays(newListDays);
-      setSelectedDay(day);
     }
+
+    setListDays(newListDays);
   }, [selectedMonth, selectedYear]);
 
   useEffect(() => {
@@ -101,7 +100,11 @@ const WeekCalendar = () => {
             onPress={() => handleSelectDay(item.number)}
             style={{
               backgroundColor:
-                item.number === selectedDay ? "#fafafa" : "#11212d",
+                item.number === selectedDay ? "#00adb5" : "#11212d",
+              marginRight: 10,
+              borderRadius: 10,
+              padding: 8,
+              transform: [{ scale: item.number === selectedDay ? 1.1 : 1 }],
             }}
           >
             <DateItemWeekDay
@@ -113,10 +116,7 @@ const WeekCalendar = () => {
               {item.weekday}
             </DateItemWeekDay>
             <DateItemNumber
-              style={{
-                color: item.number === selectedDay ? "#11212d" : "#fafafa",
-                fontWeight: item.number === selectedDay ? "bold" : "normal",
-              }}
+              selected={item.number === selectedDay} // Adicionando propriedade selected
             >
               {item.number}
             </DateItemNumber>

@@ -15,8 +15,8 @@ interface Props {
 
 const ItemCard = ({ task, handleRemoveTask, handleDoneTask }: Props) => {
   const navigation = useNavigation<any>();
-  const category = categories.filter((c) => c.value === task.category);
-console.log('categoria', task)
+  const category = categories.find((c) => c.value === task.category);
+
   const handleDetails = () => {
     navigation.navigate("TaskDetails", task);
   };
@@ -24,16 +24,16 @@ console.log('categoria', task)
   const handleDelete = () => {
     Alert.alert("Tarefas", "Tem certeza que deseja excluir esta tarefa?", [
       {
-        text: "Nãooooooo",
+        text: "Cancelar",
         style: "cancel",
       },
-      { text: "Simmmm", onPress: () => handleRemoveTask(task.id) },
+      { text: "Excluir", onPress: () => handleRemoveTask(task.id) },
     ]);
   };
 
   const LeftAction = () => {
     return (
-      <View style={styles.swipeLeft}>
+      <View style={[styles.swipeAction, styles.swipeLeft, { backgroundColor: category?.color }]}>
         <MaterialIcons
           name="done"
           size={20}
@@ -46,7 +46,7 @@ console.log('categoria', task)
 
   const RightAction = () => {
     return (
-      <View style={styles.swipeRight}>
+      <View style={[styles.swipeAction, styles.swipeRight]}>
         <MaterialIcons
           name="delete"
           size={20}
@@ -66,14 +66,16 @@ console.log('categoria', task)
               borderStyle: "solid",
               height: "100%",
               borderLeftWidth: 6,
-              borderColor: category[0].color,
+              borderColor: category?.color || "#1c2541",
               marginRight: 10,
             }}
           />
-          <Text style={styles.title}>{task.title} </Text>
-          <Text style={styles.date}>
-            {moment(task.date).format("DD/MM/YY")}
-          </Text>
+          <View style={styles.taskDetails}>
+            <Text style={styles.title}>{task.title} </Text>
+            <Text style={styles.date}>
+              {moment(task.date).format("DD/MM/YY")}
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     </Swipeable>
@@ -82,15 +84,21 @@ console.log('categoria', task)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
-    borderRadius: 5,
     marginVertical: 10,
-    width: "100%",
-    padding: 10,
+    padding: 15,
     backgroundColor: "#1c2541",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  swipeAction: {
+    justifyContent: "center",
+    width: 50,
+    borderRadius: 8,
+    alignItems: "flex-end",
+    marginVertical: 10,
   },
   swipeLeft: {
     flex: 1,
@@ -100,7 +108,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 10,
     paddingLeft: 20,
-    backgroundColor: "#006400",
+    backgroundColor: "#006400",  
   },
   swipeRight: {
     flex: 1,
@@ -111,14 +119,21 @@ const styles = StyleSheet.create({
     width: 10,
     paddingRight: 20,
     backgroundColor: "#ff0035",
+    
+  },
+  taskDetails: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
   },
   title: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "bold",
   },
   date: {
-    color: "#fff",
-    fontSize: 16,
+    color: "#ccc",
+    fontSize: 14,
   },
 });
 
