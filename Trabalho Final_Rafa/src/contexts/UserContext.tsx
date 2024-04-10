@@ -149,7 +149,7 @@ export const UserContextProvider = ({ children }: UserProviderProps) => {
   const logout = async () => {
     await AsyncStorage.removeItem("@token");
     await AsyncStorage.removeItem("@user");
- //   await GoogleSignin.signOut();
+ //  await GoogleSignin.signOut();
     setToken("");
   };
 

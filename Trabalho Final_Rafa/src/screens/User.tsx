@@ -18,8 +18,8 @@ const User = () => {
           uri: user?.image,
         }}
       />
-      <Text style={styles.description}>{user?.username}</Text>
-      <Text style={styles.description}>{user?.email}</Text>
+      <Text style={styles.description}>Usuário: {user?.username}</Text>
+      <Text style={styles.description}>Email: {user?.email}</Text>
 
       <TouchableOpacity style={styles.button} onPress={() => logout()}>
         <Text style={styles.buttonText}>Sair</Text>
@@ -35,38 +35,38 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-
-    backgroundColor: "#11212D",
+    backgroundColor: "#05171E", 
   },
   thumb: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 3,
-    borderColor: "#003d5b",
-    marginVertical: 10,
+    width: 120, 
+    height: 120, 
+    borderRadius: 60, 
+    borderWidth: 4,
+    borderColor: "#003D5B",
+    marginVertical: 20, 
   },
   title: {
-    color: "#fff",
-    fontSize: 24,
+    color: "#808080", 
+    fontSize: 28, 
     fontWeight: "bold",
     marginVertical: 10,
   },
   description: {
-    color: "#fff",
-    fontSize: 16,
-    marginVertical: 10,
+    color: "#666", 
+    fontSize: 18, 
+    marginVertical: 5, 
   },
   button: {
-    width: "90%",
+    width: "80%", 
     height: 50,
-    backgroundColor: "#003d5b",
+    backgroundColor: "#003D5B",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 20, 
   },
   buttonText: {
-    color: "#fff",
+    color: "#FFF",
+    fontSize: 18, 
   },
 });

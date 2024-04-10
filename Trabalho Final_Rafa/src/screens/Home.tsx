@@ -1,10 +1,5 @@
-import { StyleSheet, Text } from "react-native";
-import "react-native-get-random-values";
 import React, { useContext, useEffect } from "react";
-import ItemCard from "../components/ItemCard";
-import { categories } from "../utils/data/todos";
-import { SafeAreaView } from "react-native-safe-area-context";
-import CategoryItem from "../components/CategoryItem";
+import { StyleSheet, Text, SafeAreaView, FlatList, View } from "react-native";
 import Animated, {
   BounceInDown,
   FlipInYRight,
@@ -13,6 +8,9 @@ import Animated, {
 import { UserContext } from "../contexts/UserContext";
 import { TaskContext } from "../contexts/TaskContext";
 import WeekCalendar from "../components/WeekCalendar";
+import ItemCard from "../components/ItemCard";
+import CategoryItem from "../components/CategoryItem";
+import { categories } from "../utils/data/todos";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -39,14 +37,14 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
-        Olá, {user?.firstName.toUpperCase()}, hoje é dia {formatedToday}
+        Fala tu, {user?.firstName.toUpperCase()}, hoje é dia {formatedToday}
       </Text>
 
       <WeekCalendar />
 
       <Animated.FlatList
         entering={BounceInDown}
-        style={{ maxHeight: 70 }}
+        style={styles.categoriesContainer}
         data={categories}
         renderItem={({ item }) => (
           <CategoryItem
@@ -64,7 +62,7 @@ const Home = () => {
         <Animated.FlatList
           entering={FlipInYRight}
           exiting={FlipOutYRight}
-          style={{ width: "100%" }}
+          style={styles.taskListContainer}
           data={taskList}
           renderItem={({ item }) => (
             <ItemCard
@@ -79,13 +77,9 @@ const Home = () => {
       ) : (
         <Animated.View
           entering={BounceInDown}
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "flex-start",
-          }}
+          style={styles.noTasksContainer}
         >
-          <Text style={{ color: "#fff", fontSize: 20 }}>
+          <Text style={styles.noTasksText}>
             {selectedCategory === "done"
               ? "Eita, nenhuma tarefa concluída! 😢"
               : "Ufa, não há tarefas! 😋"}
@@ -96,14 +90,12 @@ const Home = () => {
   );
 };
 
-export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#11212D",
+    backgroundColor: "#05171E",
     paddingHorizontal: 16,
     paddingVertical: 4,
     width: "100%",
@@ -113,4 +105,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
+  categoriesContainer: {
+    maxHeight: 70,
+  },
+  taskListContainer: {
+    width: "100%",
+  },
+  noTasksContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  noTasksText: {
+    color: "#fff",
+    fontSize: 20,
+  },
 });
+
+export default Home;
